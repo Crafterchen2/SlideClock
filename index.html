@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<title>SlideClock Desktop</title>
+
+<head>
+    <meta charset="utf-8" content="width=device-width, initial-scale=1" name="viewport">
+    <link href="index.css" rel="stylesheet">
+    <title>SlideClock Desktop</title>
+</head>
+
+<body>
+<div class="clock">
+    <div class="hr">
+        <div class="strip">
+            <div class="number">0</div>
+            <div class="number">1</div>
+            <div class="number">2</div>
+        </div>
+        <div class="strip">
+            <div class="number">0</div>
+            <div class="number">1</div>
+            <div class="number">2</div>
+            <div class="number">3</div>
+            <div class="number">4</div>
+            <div class="number">5</div>
+            <div class="number">6</div>
+            <div class="number">7</div>
+            <div class="number">8</div>
+            <div class="number">9</div>
+        </div>
+    </div>
+    <div class="min">
+        <div class="strip">
+            <div class="number">0</div>
+            <div class="number">1</div>
+            <div class="number">2</div>
+            <div class="number">3</div>
+            <div class="number">4</div>
+            <div class="number">5</div>
+        </div>
+        <div class="strip">
+            <div class="number">0</div>
+            <div class="number">1</div>
+            <div class="number">2</div>
+            <div class="number">3</div>
+            <div class="number">4</div>
+            <div class="number">5</div>
+            <div class="number">6</div>
+            <div class="number">7</div>
+            <div class="number">8</div>
+            <div class="number">9</div>
+        </div>
+    </div>
+    <div class="sec">
+        <div class="strip">
+            <div class="number">0</div>
+            <div class="number">1</div>
+            <div class="number">2</div>
+            <div class="number">3</div>
+            <div class="number">4</div>
+            <div class="number">5</div>
+        </div>
+        <div class="strip">
+            <div class="number">0</div>
+            <div class="number">1</div>
+            <div class="number">2</div>
+            <div class="number">3</div>
+            <div class="number">4</div>
+            <div class="number">5</div>
+            <div class="number">6</div>
+            <div class="number">7</div>
+            <div class="number">8</div>
+            <div class="number">9</div>
+        </div>
+    </div>
+</div>
+<div class="moody"></div>
+<div class="player">
+    <img alt="thumbnail" class="thumbnail" src="resources/noTrack.jpg">
+    <div class="text-container">
+        <div class="title"></div>
+        <div class="desc"></div>
+    </div>
+</div>
+<div class="menuHandleButton">
+    <div class="menuHandle">☰</div>
+</div>
+<div class="menu">
+    <div class="calculatorPanel">
+        <div class="calculatorField">
+            <textarea class="calculatorIn" id="calcIn" placeholder="Berechnung"></textarea>
+            <button class="bac" onclick="backspace()" type="button">⌫</button>
+        </div>
+        <div class="calculatorButtons">
+            <button class="bro" onclick="appendToCalc(`(`)" type="button">(</button>
+            <button class="brc" onclick="appendToCalc(`)`)" type="button">)</button>
+            <button class="mul" onclick="appendToCalc(`*`)" type="button">×</button>
+            <button class="div" onclick="appendToCalc(`/`)" type="button">÷</button>
+            <button class="plu" onclick="appendToCalc(`+`)" type="button">+</button>
+            <button class="sig" onclick="appendToCalc(`-`)" type="button">-</button>
+            <button class="com" onclick="appendToCalc(`.`)" type="button">,</button>
+            <button class="equ" onclick="calc()" type="button">=</button>
+            <button class="zer" onclick="appendToCalc(`0`)" type="button">0</button>
+            <button class="one" onclick="appendToCalc(`1`)" type="button">1</button>
+            <button class="two" onclick="appendToCalc(`2`)" type="button">2</button>
+            <button class="thr" onclick="appendToCalc(`3`)" type="button">3</button>
+            <button class="fou" onclick="appendToCalc(`4`)" type="button">4</button>
+            <button class="fiv" onclick="appendToCalc(`5`)" type="button">5</button>
+            <button class="six" onclick="appendToCalc(`6`)" type="button">6</button>
+            <button class="sev" onclick="appendToCalc(`7`)" type="button">7</button>
+            <button class="eig" onclick="appendToCalc(`8`)" type="button">8</button>
+            <button class="nin" onclick="appendToCalc(`9`)" type="button">9</button>
+        </div>
+        <label class="calculatorOut">:=</label>
+    </div>
+</div>
+<script charset="utf-8" src="js/settings.js"
+        type="text/javascript"></script>
+<script charset="utf-8" src="js/player.js"
+        type="text/javascript"></script>
+<script charset="utf-8" src="js/sliderClock.js"
+        type="text/javascript"></script>
+<script charset="utf-8" src="js/menu.js"
+        type="text/javascript"></script>
+</body>
+
+</html>

@@ -1,0 +1,487 @@
+:root {
+    --player-width: 550px;
+    --player-height: 200px;
+    --player-bg: linear-gradient(to right,rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.4));
+    
+    --clock-bg: linear-gradient(to right,rgb(97, 9, 179), rgb(0, 0, 153));
+    --clock-bg-hover: linear-gradient(to right, rgb(0, 123, 255), rgb(0, 153, 150));
+
+    --menu-handle-button-size: 64px;
+    --menu-width: 50%;
+
+    --gen-text-p: rgb(255,255,255);
+    --gen-text-s: rgb(128,128,128);
+    --gen-bg: rgba(0,0,0,0.4);
+    --gen-border-radius: 8px;
+    --gen-padding: 10px;
+    --gen-padding-screen: 20px;
+    --gen-box-shadow: -10px -5px 20px -5px grey, 10px 10px 20px rgba(0, 10, 0, 0.7);
+    --gen-anim-time: 1s;
+
+    --comp-bg-p: rgb(92, 92, 92);
+    --comp-bg-s: rgb(64, 64, 64);
+    --comp-bg-t: rgb(48, 48, 48);
+    --comp-padding: 3px;
+    --comp-border-width: 1px;
+
+    --layer-clock-before: 0;
+    --layer-clock: calc(var(--layer-clock-before) + 1);
+    --layer-moody: calc(var(--layer-clock) + 1);
+    --layer-menu: calc(var(--layer-moody) + 1);
+    --layer-menu-handle: calc(var(--layer-menu) + 1);
+
+    --taskbar-bottom: 65px;
+}
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+html {
+    place-items: center;
+}
+
+textarea {
+    background-color: var(--comp-bg-p);
+    border-color: var(--gen-text-s);
+    border-width: var(--comp-border-width);
+    padding: var(--comp-padding);
+    color: var(--gen-text-p);
+    
+}
+
+button {
+    background-color: var(--comp-bg-s);
+    border: solid;
+    border-color: var(--gen-text-s);
+    border-width: var(--comp-border-width);
+    padding: var(--comp-padding);
+    color: var(--gen-text-p);
+}
+
+label {
+    background-color: var(--comp-bg-p);
+    border: solid;
+    border-color: var(--gen-text-s);
+    border-width: var(--comp-border-width);
+    padding: var(--comp-padding);
+    color: var(--gen-text-p);
+}
+
+button:active {
+    border-color: var(--gen-text-p);
+}
+
+body {
+    font-family: monospace;
+    font-size: 2rem;
+
+    min-height: 100vh;
+    display: grid;
+    overflow-y: hidden;
+    place-items: center;
+    position: relative;
+    background-image: var(--clock-bg);
+    z-index: var(--layer-clock);
+}
+
+body::before {
+    min-height: 100vh;
+    position: absolute;
+    content: "";
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-image: var(--clock-bg-hover);
+    z-index: var(--layer-clock-before);
+    transition: opacity var(--gen-anim-time) ease-in-out;
+    opacity: 0;
+}
+
+body:hover::before {
+    opacity: 1;
+}
+
+.hr,
+.min,
+.sec {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 3rem;
+    grid-row: 1/2;
+    align-items: start;
+}
+
+.number {
+    padding: 0.5em;
+    width: 4rem;
+    height: 4rem;
+    display: grid;
+    place-items: center;
+    color: var(--gen-text-s);
+    transition: all 500ms 100ms ease;
+    border-radius: 50%;
+}
+
+.number.pop {
+    color: var(--gen-text-p);
+    font-weight: bolder;
+    transform: scale(1.4);
+    background-color: var(--gen-bg);
+    box-shadow: var(--gen-box-shadow);
+}
+
+.strip {
+    transition: transform 500ms ease-in-out;
+    border-radius: var(--gen-border-radius);
+    background-color: var(--gen-bg);
+    box-shadow: var(--gen-box-shadow);
+}
+
+.clock {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 5rem;
+    height: 4rem;
+    position: relative;
+    padding: 0 4rem;
+}
+
+.player {
+    z-index: var(--layer-menu);
+    border-radius: var(--gen-border-radius);
+    background-image: var(--player-bg);
+    box-shadow: var(--gen-box-shadow);
+    position: absolute;
+    width: var(--player-width);
+    height: var(--player-height);
+    bottom: var(--taskbar-bottom);
+    right: var(--gen-padding-screen);
+    display: flex;
+    align-items: center;
+    opacity: 0;
+    transform: translateY(100%);
+    /*transition: opacity var(--gen-anim-time), transform var(--gen-anim-time);*/
+    padding: var(--gen-padding);
+    justify-content: space-between;
+}
+
+.player.show {
+    animation: slideIn var(--gen-anim-time) forwards;
+}
+
+.player.hide {
+    animation: slideOut var(--gen-anim-time) forwards;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideOut {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(100%);
+    }
+}
+
+.thumbnail {
+    height: 100%; 
+    aspect-ratio: 1;
+    object-fit: cover; 
+    border-radius: var(--gen-border-radius);
+    margin-right: var(--gen-padding);
+}
+
+.text-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+    height: 100%;
+}
+
+.title {
+    font-weight: bold;
+    text-align: right;
+    color: var(--gen-text-p);
+}
+
+.desc {
+    text-align: right;
+    font-size: 1.4rem;
+    color: var(--gen-text-s);
+}
+
+.menuHandleButton {
+    z-index: var(--layer-menu-handle);
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--gen-bg);
+    box-shadow: var(--gen-box-shadow);
+    top: var(--gen-padding-screen);
+    left: var(--gen-padding-screen);
+    width: var(--menu-handle-button-size);
+    height: var(--menu-handle-button-size);
+    border-radius: var(--gen-border-radius);
+}
+
+.menuHandle {
+    font-weight: bold;
+    color: var(--gen-text-s);
+}
+
+.menuHandle.open {
+    animation: openHandle var(--gen-anim-time) forwards;
+}
+
+.menuHandle.close {
+    animation: closeHandle var(--gen-anim-time) forwards;
+}
+
+@keyframes openHandle {
+    from {
+        transform: rotate(0turn);
+        color: var(--gen-text-s);
+    }
+    to {
+        transform: rotate(0.25turn);
+        color: var(--gen-text-p);
+    }
+}
+
+
+@keyframes closeHandle {
+    from {
+        transform: rotate(0.25turn);
+        color: var(--gen-text-p);
+    }
+    to {
+        transform: rotate(0turn);
+        color: var(--gen-text-s);
+    }
+}
+
+.menu {
+    z-index: var(--layer-menu);
+    background-color: var(--gen-bg);
+    box-shadow: var(--gen-box-shadow);
+    position: absolute;
+    left: var(--gen-padding-screen);
+    top: calc(var(--menu-handle-button-size) + var(--gen-padding-screen) + var(--gen-padding));
+    bottom: var(--taskbar-bottom);
+    width: var(--menu-width);
+    border-radius: var(--gen-border-radius);
+    opacity: 0;
+    transform: translateY(-100%);
+    flex-wrap: wrap;
+    flex-direction: row;
+    padding: var(--gen-padding);
+}
+
+.menu.open {
+    animation: openMenu var(--gen-anim-time) forwards;
+}
+
+.menu.close {
+    animation: closeMenu var(--gen-anim-time) forwards;
+}
+
+@keyframes openMenu {
+    from {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes closeMenu {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+}
+
+.moody {
+    z-index: var(--layer-moody);
+    opacity: 0;
+    position: absolute;
+    background-color: var(--gen-bg);
+    width: 100%;
+    height: 100%;
+}
+
+.moody.dark {
+    animation: makeDark var(--gen-anim-time) forwards;
+}
+
+.moody.bright {
+    animation: makeBright var(--gen-anim-time) forwards;
+}
+
+@keyframes makeDark {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes makeBright {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+.calculatorPanel {
+    padding: var(--gen-padding);
+    background-color: var(--gen-bg);
+    border-radius: var(--gen-border-radius);
+    gap: var(--gen-padding);
+    display: grid;
+    grid-template-areas:
+      'key cou'
+      'key tex';
+}
+
+.calculatorButtons {
+    display: grid;
+    grid-template-areas:
+      'bro div mul sig'
+      'brc div mul sig'
+      'sev eig nin plu'
+      'fou fiv six plu'
+      'one two thr equ'
+      'zer zer com equ';
+    grid-area: key;
+}
+
+.calculatorField {
+    display: flex;
+    flex-direction: row;
+    grid-area: cou;
+}
+
+.calculatorIn {
+    resize: none;
+    grid-area: tex;
+    flex: 0 0 75%;
+}
+
+.calculatorOut {
+    width: 100%;
+}
+
+.bac {
+    grid-area: bac;
+    flex: 0 0 25%;
+}
+
+.bro {
+    grid-area: bro;
+}
+
+.brc {
+    grid-area: brc;
+}
+
+.mul {
+    grid-area: mul;
+}
+
+.div {
+    grid-area: div;
+}
+
+.plu {
+    grid-area: plu;
+}
+
+.sig {
+    grid-area: sig;
+}
+
+.com {
+    grid-area: com;
+}
+
+.equ {
+    grid-area: equ;
+}
+
+.zer {
+    grid-area: zer;
+    background-color: var(--comp-bg-t);
+}
+
+.one {
+    grid-area: one;
+    background-color: var(--comp-bg-t);
+}
+
+.two {
+    grid-area: two;
+    background-color: var(--comp-bg-t);
+}
+
+.thr {
+    grid-area: thr;
+    background-color: var(--comp-bg-t);
+}
+
+.fou {
+    grid-area: fou;
+    background-color: var(--comp-bg-t);
+}
+
+.fiv {
+    grid-area: fiv;
+    background-color: var(--comp-bg-t);
+}
+
+.six {
+    grid-area: six;
+    background-color: var(--comp-bg-t);
+}
+
+.sev {
+    grid-area: sev;
+    background-color: var(--comp-bg-t);
+}
+
+.eig {
+    grid-area: eig;
+    background-color: var(--comp-bg-t);
+}
+
+.nin {
+    grid-area: nin;
+    background-color: var(--comp-bg-t);
+}

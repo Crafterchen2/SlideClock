@@ -1,0 +1,20 @@
+{
+	"contentrating": "Everyone",
+	"ratingsex" : "none",
+	"ratingviolence" : "none",
+	"description": "A simple slide clock",
+	"file": "index.html",
+	"general": {
+		"properties": {
+			
+		},
+		"supportsaudioprocessing" : true
+	},
+	"preview": "preview.jpg",
+	"tags": [
+		"Abstract"
+	],
+	"title": "Slide Clock",
+	"type": "web",
+	"version": 0
+}
