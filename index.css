@@ -5,6 +5,8 @@
 
     --clock-bg: linear-gradient(to right, rgb(97, 9, 179), rgb(0, 0, 153));
     --clock-bg-hover: linear-gradient(to right, rgb(0, 123, 255), rgb(0, 153, 150));
+    
+    --alarm-bg: linear-gradient(to right, rgb(255, 0, 72), rgb(153, 54, 0));
 
     --menu-handle-button-size: 64px;
     --menu-width: 50%;
@@ -27,8 +29,8 @@
     --calc-height: 140px;
 
     --layer-clock-before: 0;
-    --layer-moody: calc(var(--layer-clock-before) + 1);
-    --layer-clock: calc(var(--layer-moody) + 1);
+    --layer-alarm: calc(var(--layer-clock-before) + 1);
+    --layer-clock: calc(var(--layer-alarm) + 1);
     --layer-menu: calc(var(--layer-clock) + 1);
     --layer-menu-handle: calc(var(--layer-menu) + 1);
 
@@ -323,4 +325,39 @@ body:hover::before {
     border: transparent;
     font-size: 2rem;
     font-family: monospace;
+}
+
+.alarm {
+    background-image: var(--alarm-bg);
+    z-index: var(--layer-alarm);
+    opacity: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.alarm.show {
+    animation: showAlarm var(--gen-anim-time) forwards;
+}
+
+.alarm.hide {
+    animation: hideAlarm var(--gen-anim-time) forwards;
+}
+
+@keyframes showAlarm {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes hideAlarm {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
 }

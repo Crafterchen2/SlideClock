@@ -34,6 +34,7 @@ function stripSlider(strip, id, number) {
 }
 
 let timerRunning = false;
+let showAlarm = false;
 
 function updateClock() {
     let hours;
@@ -55,7 +56,7 @@ function updateClock() {
                 hours--;
             } else {
                 timerRunning = false;
-                if (menuOpen) toggleMenu();
+                setAlarm(true);
             }
         }
     } else {
@@ -72,8 +73,23 @@ function updateClock() {
     stripSlider(4, 2, secs);
 }
 
+function setAlarm(alarm) {
+    if (alarm !== showAlarm) {
+        showAlarm = !showAlarm;
+        const alarm = document.querySelector('.alarm');
+        if (showAlarm) {
+            alarm.classList.remove('hide');
+            alarm.classList.add('show');
+        } else {
+            alarm.classList.remove('show');
+            alarm.classList.add('hide');
+        }
+    }
+}
+
 function toggleTimer() {
-    timerRunning = !timerRunning;
+    if (!showAlarm) timerRunning = !timerRunning;
+    setAlarm(false);
 }
 
 // set Timer for clock-update

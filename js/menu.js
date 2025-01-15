@@ -14,6 +14,7 @@ function toggleMenu() {
         handle.classList.add('close');
         menu.classList.remove('open');
         menu.classList.add('close');
+        setAlarm(false);
     }
 }
 
