@@ -17,5 +17,3 @@ function toggleMenu() {
         setAlarm(false);
     }
 }
-
-document.querySelector('.menuHandleButton').addEventListener('click', toggleMenu);

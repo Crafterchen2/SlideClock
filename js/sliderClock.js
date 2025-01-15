@@ -72,7 +72,7 @@ function updateClock() {
 }
 
 function slideClock(hours, mins, secs) {
-    stripSlider(0, 0, Math.min(59, Math.max(0, hours)));
+    stripSlider(0, 0, Math.min(29, Math.max(0, hours)));
     stripSlider(2, 1, Math.min(59, Math.max(0, mins)));
     stripSlider(4, 2, Math.min(59, Math.max(0, secs)));
 }
@@ -92,6 +92,8 @@ function setAlarm(alarm) {
 }
 
 function stripToZero(){
+    timerRunning = false;
+    setAlarm(false);
     slideClock(0,0,0);
 }
 

@@ -5,8 +5,9 @@
 
     --clock-bg: linear-gradient(to right, rgb(97, 9, 179), rgb(0, 0, 153));
     --clock-bg-hover: linear-gradient(to right, rgb(0, 123, 255), rgb(0, 153, 150));
-    
+
     --alarm-bg: linear-gradient(to right, rgb(255, 0, 72), rgb(153, 54, 0));
+    --alarm-bg-hover: linear-gradient(to right, rgb(255, 0, 166), rgb(255, 206, 0));
 
     --menu-handle-button-size: 64px;
     --menu-width: 50%;
@@ -28,8 +29,9 @@
 
     --calc-height: 140px;
 
-    --layer-clock-before: 0;
-    --layer-alarm: calc(var(--layer-clock-before) + 1);
+    --layer-zero: 0;
+    --layer-player: calc(var(--layer-zero) + 1);
+    --layer-alarm: calc(var(--layer-player) + 1);
     --layer-clock: calc(var(--layer-alarm) + 1);
     --layer-menu: calc(var(--layer-clock) + 1);
     --layer-menu-handle: calc(var(--layer-menu) + 1);
@@ -38,6 +40,7 @@
 }
 
 * {
+    font-family: monospace;
     box-sizing: border-box;
     padding: 0;
     margin: 0;
@@ -56,12 +59,7 @@ label {
     color: var(--gen-text-p);
 }
 
-button:active {
-    border-color: var(--gen-text-p);
-}
-
 body {
-    font-family: monospace;
     font-size: 2rem;
     min-height: 100vh;
     display: grid;
@@ -69,19 +67,16 @@ body {
     place-items: center;
     position: relative;
     background-image: var(--clock-bg);
-    z-index: var(--layer-clock);
+    z-index: var(--layer-zero);
 }
 
 body::before {
     min-height: 100vh;
     position: absolute;
     content: "";
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
+    width: 100%;
+    height: 100%;
     background-image: var(--clock-bg-hover);
-    z-index: var(--layer-clock-before);
     transition: opacity var(--gen-anim-time) ease-in-out;
     opacity: 0;
 }
@@ -112,7 +107,6 @@ body:hover::before {
     background-color: transparent;
     border: transparent;
     font-size: 2rem;
-    font-family: monospace;
 }
 
 .number.pop {
@@ -141,7 +135,7 @@ body:hover::before {
 }
 
 .player {
-    z-index: var(--layer-menu);
+    z-index: var(--layer-player);
     border-radius: var(--gen-border-radius);
     background-image: var(--player-bg);
     box-shadow: var(--gen-box-shadow);
@@ -274,13 +268,13 @@ body:hover::before {
     position: absolute;
     left: var(--gen-padding-screen);
     top: calc(var(--menu-handle-button-size) + var(--gen-padding-screen) + var(--gen-padding));
-    height: var(--menu-handle-button-size);
-    width: var(--menu-handle-button-size);
+    height: fit-content;
+    width: fit-content;
     border-radius: var(--gen-border-radius);
     opacity: 0;
     transform: translateY(-100%);
     flex-wrap: wrap;
-    flex-direction: row;
+    flex-direction: column;
     //padding: var(--gen-padding);
 }
 
@@ -314,9 +308,9 @@ body:hover::before {
     }
 }
 
-.toggleTimerButton {
-    width: 4rem;
-    height: 4rem;
+.inMenuButton {
+    width: var(--menu-handle-button-size);
+    height: var(--menu-handle-button-size);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -324,7 +318,6 @@ body:hover::before {
     background-color: transparent;
     border: transparent;
     font-size: 2rem;
-    font-family: monospace;
 }
 
 .alarm {
@@ -334,6 +327,21 @@ body:hover::before {
     position: absolute;
     width: 100%;
     height: 100%;
+}
+
+.alarm::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: var(--alarm-bg-hover);
+    z-index: var(--layer-alarm);
+    transition: opacity var(--gen-anim-time) ease-in-out;
+    opacity: 0;
+}
+
+.alarm:hover::before {
+    opacity: 1;
 }
 
 .alarm.show {
