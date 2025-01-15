@@ -30,9 +30,9 @@
     --calc-height: 140px;
 
     --layer-zero: 0;
-    --layer-player: calc(var(--layer-zero) + 1);
-    --layer-alarm: calc(var(--layer-player) + 1);
-    --layer-clock: calc(var(--layer-alarm) + 1);
+    --layer-alarm: calc(var(--layer-zero) + 1);
+    --layer-player: calc(var(--layer-alarm) + 1);
+    --layer-clock: calc(var(--layer-player) + 1);
     --layer-menu: calc(var(--layer-clock) + 1);
     --layer-menu-handle: calc(var(--layer-menu) + 1);
 
