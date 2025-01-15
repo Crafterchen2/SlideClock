@@ -7,11 +7,11 @@ function updateTrackInfo(trackInfo) {
     if (trackInfo) {
         document.querySelector('.thumbnail').src = trackInfo.thumbnail ?? noTrackJpg;
         document.querySelector('.title').textContent = trackInfo.title ?? "Kein Titel";
-        document.querySelector('.desc').textContent = trackInfo.artist ?? "Kein Kein Künstler";
+        document.querySelector('.desc').textContent = trackInfo.artist ?? "Kein Künstler";
     } else {
         document.querySelector('.thumbnail').src = noTrackJpg;
         document.querySelector('.title').textContent = "Kein Titel";
-        document.querySelector('.desc').textContent = "Kein Kein Künstler";
+        document.querySelector('.desc').textContent = "Kein Künstler";
     }
 }
 
@@ -41,8 +41,8 @@ function changePlayerBackgroundColor(hexColorP, hexColorS) {
     const colorP = hexToRgb(hexColorP);
     const colorS = hexToRgb(hexColorS);
     const playerElement = document.querySelector('.player');
-    p = settings.player.pColorScale;
-    s = settings.player.sColorScale;
+    let p = settings.player.pColorScale;
+    let s = settings.player.sColorScale;
     playerElement.style.backgroundImage = `linear-gradient(to right,
                 rgba(${colorP.r * p.r}, ${colorP.g * p.g}, ${colorP.b * p.b}, ${settings.player.pOpacity}),
                 rgba(${colorS.r * s.r}, ${colorS.g * s.g}, ${colorS.b * s.b}, ${settings.player.sOpacity}))`;

@@ -1,17 +1,17 @@
 :root {
     --player-width: 550px;
     --player-height: 200px;
-    --player-bg: linear-gradient(to right,rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.4));
-    
-    --clock-bg: linear-gradient(to right,rgb(97, 9, 179), rgb(0, 0, 153));
+    --player-bg: linear-gradient(to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.4));
+
+    --clock-bg: linear-gradient(to right, rgb(97, 9, 179), rgb(0, 0, 153));
     --clock-bg-hover: linear-gradient(to right, rgb(0, 123, 255), rgb(0, 153, 150));
 
     --menu-handle-button-size: 64px;
     --menu-width: 50%;
 
-    --gen-text-p: rgb(255,255,255);
-    --gen-text-s: rgb(128,128,128);
-    --gen-bg: rgba(0,0,0,0.4);
+    --gen-text-p: rgb(255, 255, 255);
+    --gen-text-s: rgb(128, 128, 128);
+    --gen-bg: rgba(0, 0, 0, 0.4);
     --gen-border-radius: 8px;
     --gen-padding: 10px;
     --gen-padding-screen: 20px;
@@ -24,10 +24,12 @@
     --comp-padding: 3px;
     --comp-border-width: 1px;
 
+    --calc-height: 140px;
+
     --layer-clock-before: 0;
-    --layer-clock: calc(var(--layer-clock-before) + 1);
-    --layer-moody: calc(var(--layer-clock) + 1);
-    --layer-menu: calc(var(--layer-moody) + 1);
+    --layer-moody: calc(var(--layer-clock-before) + 1);
+    --layer-clock: calc(var(--layer-moody) + 1);
+    --layer-menu: calc(var(--layer-clock) + 1);
     --layer-menu-handle: calc(var(--layer-menu) + 1);
 
     --taskbar-bottom: 65px;
@@ -41,24 +43,6 @@
 
 html {
     place-items: center;
-}
-
-textarea {
-    background-color: var(--comp-bg-p);
-    border-color: var(--gen-text-s);
-    border-width: var(--comp-border-width);
-    padding: var(--comp-padding);
-    color: var(--gen-text-p);
-    
-}
-
-button {
-    background-color: var(--comp-bg-s);
-    border: solid;
-    border-color: var(--gen-text-s);
-    border-width: var(--comp-border-width);
-    padding: var(--comp-padding);
-    color: var(--gen-text-p);
 }
 
 label {
@@ -77,7 +61,6 @@ button:active {
 body {
     font-family: monospace;
     font-size: 2rem;
-
     min-height: 100vh;
     display: grid;
     overflow-y: hidden;
@@ -124,6 +107,10 @@ body:hover::before {
     color: var(--gen-text-s);
     transition: all 500ms 100ms ease;
     border-radius: 50%;
+    background-color: transparent;
+    border: transparent;
+    font-size: 2rem;
+    font-family: monospace;
 }
 
 .number.pop {
@@ -142,6 +129,7 @@ body:hover::before {
 }
 
 .clock {
+    z-index: var(--layer-clock);
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 5rem;
@@ -164,7 +152,6 @@ body:hover::before {
     align-items: center;
     opacity: 0;
     transform: translateY(100%);
-    /*transition: opacity var(--gen-anim-time), transform var(--gen-anim-time);*/
     padding: var(--gen-padding);
     justify-content: space-between;
 }
@@ -200,9 +187,9 @@ body:hover::before {
 }
 
 .thumbnail {
-    height: 100%; 
+    height: 100%;
     aspect-ratio: 1;
-    object-fit: cover; 
+    object-fit: cover;
     border-radius: var(--gen-border-radius);
     margin-right: var(--gen-padding);
 }
@@ -261,7 +248,7 @@ body:hover::before {
         color: var(--gen-text-s);
     }
     to {
-        transform: rotate(0.25turn);
+        transform: rotate(1turn);
         color: var(--gen-text-p);
     }
 }
@@ -269,7 +256,7 @@ body:hover::before {
 
 @keyframes closeHandle {
     from {
-        transform: rotate(0.25turn);
+        transform: rotate(1turn);
         color: var(--gen-text-p);
     }
     to {
@@ -285,14 +272,14 @@ body:hover::before {
     position: absolute;
     left: var(--gen-padding-screen);
     top: calc(var(--menu-handle-button-size) + var(--gen-padding-screen) + var(--gen-padding));
-    bottom: var(--taskbar-bottom);
-    width: var(--menu-width);
+    height: var(--menu-handle-button-size);
+    width: var(--menu-handle-button-size);
     border-radius: var(--gen-border-radius);
     opacity: 0;
     transform: translateY(-100%);
     flex-wrap: wrap;
     flex-direction: row;
-    padding: var(--gen-padding);
+    //padding: var(--gen-padding);
 }
 
 .menu.open {
@@ -325,163 +312,15 @@ body:hover::before {
     }
 }
 
-.moody {
-    z-index: var(--layer-moody);
-    opacity: 0;
-    position: absolute;
-    background-color: var(--gen-bg);
-    width: 100%;
-    height: 100%;
-}
-
-.moody.dark {
-    animation: makeDark var(--gen-anim-time) forwards;
-}
-
-.moody.bright {
-    animation: makeBright var(--gen-anim-time) forwards;
-}
-
-@keyframes makeDark {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-
-@keyframes makeBright {
-    from {
-        opacity: 1;
-    }
-    to {
-        opacity: 0;
-    }
-}
-
-.calculatorPanel {
-    padding: var(--gen-padding);
-    background-color: var(--gen-bg);
-    border-radius: var(--gen-border-radius);
-    gap: var(--gen-padding);
-    display: grid;
-    grid-template-areas:
-      'key cou'
-      'key tex';
-}
-
-.calculatorButtons {
-    display: grid;
-    grid-template-areas:
-      'bro div mul sig'
-      'brc div mul sig'
-      'sev eig nin plu'
-      'fou fiv six plu'
-      'one two thr equ'
-      'zer zer com equ';
-    grid-area: key;
-}
-
-.calculatorField {
+.toggleTimerButton {
+    width: 4rem;
+    height: 4rem;
     display: flex;
-    flex-direction: row;
-    grid-area: cou;
-}
-
-.calculatorIn {
-    resize: none;
-    grid-area: tex;
-    flex: 0 0 75%;
-}
-
-.calculatorOut {
-    width: 100%;
-}
-
-.bac {
-    grid-area: bac;
-    flex: 0 0 25%;
-}
-
-.bro {
-    grid-area: bro;
-}
-
-.brc {
-    grid-area: brc;
-}
-
-.mul {
-    grid-area: mul;
-}
-
-.div {
-    grid-area: div;
-}
-
-.plu {
-    grid-area: plu;
-}
-
-.sig {
-    grid-area: sig;
-}
-
-.com {
-    grid-area: com;
-}
-
-.equ {
-    grid-area: equ;
-}
-
-.zer {
-    grid-area: zer;
-    background-color: var(--comp-bg-t);
-}
-
-.one {
-    grid-area: one;
-    background-color: var(--comp-bg-t);
-}
-
-.two {
-    grid-area: two;
-    background-color: var(--comp-bg-t);
-}
-
-.thr {
-    grid-area: thr;
-    background-color: var(--comp-bg-t);
-}
-
-.fou {
-    grid-area: fou;
-    background-color: var(--comp-bg-t);
-}
-
-.fiv {
-    grid-area: fiv;
-    background-color: var(--comp-bg-t);
-}
-
-.six {
-    grid-area: six;
-    background-color: var(--comp-bg-t);
-}
-
-.sev {
-    grid-area: sev;
-    background-color: var(--comp-bg-t);
-}
-
-.eig {
-    grid-area: eig;
-    background-color: var(--comp-bg-t);
-}
-
-.nin {
-    grid-area: nin;
-    background-color: var(--comp-bg-t);
+    justify-content: center;
+    align-items: center;
+    color: var(--gen-text-p);
+    background-color: transparent;
+    border: transparent;
+    font-size: 2rem;
+    font-family: monospace;
 }
