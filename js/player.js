@@ -74,4 +74,3 @@ try {
 }
 
 updateTrackInfo(null);
-togglePlayerVisibility();
