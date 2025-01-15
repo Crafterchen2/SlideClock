@@ -8,6 +8,5 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="@types/math-expression-evaluator" level="application" />
   </component>
 </module>
