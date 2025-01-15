@@ -35,6 +35,7 @@ function stripSlider(strip, id, number) {
 
 let timerRunning = false;
 let showAlarm = false;
+let timerDir = -1;
 
 function updateClock() {
     let hours;
@@ -45,17 +46,18 @@ function updateClock() {
         mins = lastTime[1];
         hours = lastTime[0];
         if (timerRunning) {
-            if (secs > 0) {
-                secs--;
-            } else if (mins > 0) {
-                secs = 59;
-                mins--;
-            } else if (lastTime[0] > 0)  {
-                secs = 59;
-                mins = 59;
-                hours--;
+            if (secs > ((timerDir < 0) ? 0 : -1) && secs < ((timerDir < 0) ? 60 : 59)) {
+                secs += timerDir;
+            } else if (mins > ((timerDir < 0) ? 0 : -1) && mins < ((timerDir < 0) ? 60 : 59)) {
+                secs = (timerDir < 0) ? 59 : 0;
+                mins += timerDir;
+            } else if (hours > ((timerDir < 0) ? 0 : -1) && hours < ((timerDir < 0) ? 60 : 59))  {
+                secs = (timerDir < 0) ? 59 : 0;
+                mins = (timerDir < 0) ? 59 : 0;
+                hours += timerDir;
             } else {
-                timerRunning = false;
+                timerDir = 1;
+                secs += timerDir;
                 setAlarm(true);
             }
         }
@@ -66,11 +68,13 @@ function updateClock() {
         mins = time.getMinutes();
         secs = time.getSeconds();        
     }
+    slideClock(hours, mins, secs);
+}
 
-    // slide strips
-    stripSlider(0, 0, hours);
-    stripSlider(2, 1, mins);
-    stripSlider(4, 2, secs);
+function slideClock(hours, mins, secs) {
+    stripSlider(0, 0, Math.min(59, Math.max(0, hours)));
+    stripSlider(2, 1, Math.min(59, Math.max(0, mins)));
+    stripSlider(4, 2, Math.min(59, Math.max(0, secs)));
 }
 
 function setAlarm(alarm) {
@@ -87,8 +91,19 @@ function setAlarm(alarm) {
     }
 }
 
+function stripToZero(){
+    slideClock(0,0,0);
+}
+
+function toggleStopwatch() {
+    if (!showAlarm) timerRunning = !timerRunning;
+    if (timerRunning) timerDir = 1;
+    setAlarm(false);
+}
+
 function toggleTimer() {
     if (!showAlarm) timerRunning = !timerRunning;
+    if (timerRunning) timerDir = -1;
     setAlarm(false);
 }
 

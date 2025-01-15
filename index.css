@@ -250,7 +250,7 @@ body:hover::before {
         color: var(--gen-text-s);
     }
     to {
-        transform: rotate(1turn);
+        transform: rotate(0.25turn);
         color: var(--gen-text-p);
     }
 }
@@ -258,7 +258,7 @@ body:hover::before {
 
 @keyframes closeHandle {
     from {
-        transform: rotate(1turn);
+        transform: rotate(0.25turn);
         color: var(--gen-text-p);
     }
     to {
