@@ -14,6 +14,17 @@ function toggleMenu() {
         handle.classList.add('close');
         menu.classList.remove('open');
         menu.classList.add('close');
+        const blocker = document.querySelector('.blocker');
+        blocker.classList.remove('show');
+        blocker.classList.add('hide');
         setAlarm(false);
+    }
+}
+
+function showBlocker(){
+    if (menuOpen || true) {
+        const blocker = document.querySelector('.blocker');
+        blocker.classList.remove('hide');
+        blocker.classList.add('show');
     }
 }

@@ -9,6 +9,8 @@
     --alarm-bg: linear-gradient(to right, rgb(255, 0, 72), rgb(153, 54, 0));
     --alarm-bg-hover: linear-gradient(to right, rgb(255, 0, 166), rgb(255, 206, 0));
 
+    --blocker-bg: rgb(0,0,0);
+
     --menu-handle-button-size: 64px;
     --menu-width: 50%;
 
@@ -34,7 +36,8 @@
     --layer-player: calc(var(--layer-alarm) + 1);
     --layer-clock: calc(var(--layer-player) + 1);
     --layer-menu: calc(var(--layer-clock) + 1);
-    --layer-menu-handle: calc(var(--layer-menu) + 1);
+    --layer-blocker: calc(var(--layer-menu) + 1);
+    --layer-menu-handle: calc(var(--layer-blocker) + 1);
 
     --taskbar-bottom: 65px;
 }
@@ -362,6 +365,44 @@ body:hover::before {
 }
 
 @keyframes hideAlarm {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+.blocker {
+    background-color: var(--blocker-bg);
+    z-index: var(--layer-blocker);
+    opacity: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.blocker.show {
+    animation: showBlocker var(--gen-anim-time) forwards;
+    pointer-events: all;
+}
+
+.blocker.hide {
+    animation: hideBlocker var(--gen-anim-time) forwards;
+    pointer-events: none;
+}
+
+@keyframes showBlocker {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes hideBlocker {
     from {
         opacity: 1;
     }
