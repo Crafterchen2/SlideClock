@@ -22,6 +22,7 @@ function togglePlayerVisibility() {
         playerElement.classList.remove('hide');
         playerElement.classList.add('show');
     } else {
+        if (playerBig) togglePlayerBig();
         playerElement.classList.remove('show');
         playerElement.classList.add('hide');
     }
@@ -63,6 +64,26 @@ function wallpaperMediaPropertiesListener(event) {
         document.querySelector('.desc').textContent = event.artist ?? "Kein Kein Künstler";
     }
     togglePlayerVisibility();
+}
+
+let playerBig = false;
+
+function togglePlayerBig(){
+    const player = document.querySelector('.playerContainer');
+    const menu = document.querySelector('.menuHandleButton')
+    if (playerBig) {
+        menu.classList.remove('hide')
+        menu.classList.add('show')
+        player.classList.remove('big');
+        player.classList.add('small');
+    } else {
+        if (menuOpen) toggleMenu();
+        menu.classList.remove('show')
+        menu.classList.add('hide')
+        player.classList.remove('small');
+        player.classList.add('big');
+    }
+    playerBig = !playerBig;
 }
 
 try {

@@ -33,10 +33,10 @@
 
     --layer-zero: 0;
     --layer-alarm: calc(var(--layer-zero) + 1);
-    --layer-player: calc(var(--layer-alarm) + 1);
-    --layer-clock: calc(var(--layer-player) + 1);
+    --layer-clock: calc(var(--layer-alarm) + 1);
     --layer-menu: calc(var(--layer-clock) + 1);
-    --layer-blocker: calc(var(--layer-menu) + 1);
+    --layer-player: calc(var(--layer-menu) + 1);
+    --layer-blocker: calc(var(--layer-player) + 1);
     --layer-menu-handle: calc(var(--layer-blocker) + 1);
 
     --taskbar-bottom: 65px;
@@ -137,16 +137,51 @@ body:hover::before {
     padding: 0 4rem;
 }
 
-.player {
-    z-index: var(--layer-player);
-    border-radius: var(--gen-border-radius);
-    background-image: var(--player-bg);
-    box-shadow: var(--gen-box-shadow);
+.playerContainer {
     position: absolute;
     width: var(--player-width);
     height: var(--player-height);
     bottom: var(--taskbar-bottom);
     right: var(--gen-padding-screen);
+    z-index: var(--layer-player);
+}
+
+.playerContainer.big {
+    animation: toBig var(--gen-anim-time) forwards;
+}
+
+.playerContainer.small {
+    animation: toSmall var(--gen-anim-time) forwards;
+}
+
+@keyframes toBig {
+    from {
+        width: var(--player-width);
+        height: var(--player-height);
+    }
+    to {
+        width: calc(100vw - (var(--gen-padding-screen) * 2));
+        height: calc(100vh - var(--gen-padding-screen) - var(--taskbar-bottom));
+    }
+}
+
+@keyframes toSmall {
+    from {
+        width: calc(100vw - (var(--gen-padding-screen) * 2));
+        height: calc(100vh - var(--gen-padding-screen) - var(--taskbar-bottom));
+    }
+    to {
+        width: var(--player-width);
+        height: var(--player-height);
+    }
+}
+
+.player {
+    border-radius: var(--gen-border-radius);
+    background-image: var(--player-bg);
+    box-shadow: var(--gen-box-shadow);
+    width: 100%;
+    height: 100%;
     display: flex;
     align-items: center;
     opacity: 0;
@@ -156,14 +191,14 @@ body:hover::before {
 }
 
 .player.show {
-    animation: slideIn var(--gen-anim-time) forwards;
+    animation: slideInFromBottom var(--gen-anim-time) forwards;
 }
 
 .player.hide {
-    animation: slideOut var(--gen-anim-time) forwards;
+    animation: slideOutFromBottom var(--gen-anim-time) forwards;
 }
 
-@keyframes slideIn {
+@keyframes slideInFromBottom {
     from {
         opacity: 0;
         transform: translateY(100%);
@@ -174,7 +209,7 @@ body:hover::before {
     }
 }
 
-@keyframes slideOut {
+@keyframes slideOutFromBottom {
     from {
         opacity: 1;
         transform: translateY(0);
@@ -226,6 +261,36 @@ body:hover::before {
     width: var(--menu-handle-button-size);
     height: var(--menu-handle-button-size);
     border-radius: var(--gen-border-radius);
+}
+
+.menuHandleButton.show {
+    animation: slideInFromLeft var(--gen-anim-time) forwards;
+}
+
+.menuHandleButton.hide {
+    animation: slideOutFromLeft var(--gen-anim-time) forwards;
+}
+
+@keyframes slideInFromLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideOutFromLeft {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
 }
 
 .menuHandle {
