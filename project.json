@@ -1,20 +1,35 @@
 {
-	"contentrating": "Everyone",
-	"ratingsex" : "none",
-	"ratingviolence" : "none",
-	"description": "A simple slide clock",
-	"file": "index.html",
-	"general": {
-		"properties": {
-			
-		},
-		"supportsaudioprocessing" : true
-	},
-	"preview": "preview.jpg",
-	"tags": [
-		"Abstract"
-	],
-	"title": "Slide Clock",
-	"type": "web",
-	"version": 0
+  "contentrating": "Everyone",
+  "description": "A simple slide clock",
+  "file": "index.html",
+  "general": {
+    "properties": {
+      "menuenabled": {
+        "index": 1,
+        "order": 101,
+        "text": "Menu Enabled",
+        "type": "bool",
+        "value": true
+      },
+      "playerenabled": {
+        "index": 0,
+        "order": 100,
+        "text": "Player Enabled",
+        "type": "bool",
+        "value": true
+      },
+      "schemecolor": {
+        "order": 0,
+        "text": "ui_browse_properties_scheme_color",
+        "type": "color",
+        "value": "0 0 0"
+      }
+    }
+  },
+  "ratingsex": "none",
+  "ratingviolence": "none",
+  "tags": ["Abstract"],
+  "title": "Slide Clock",
+  "type": "web",
+  "version": 0
 }

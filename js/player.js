@@ -28,6 +28,19 @@ function togglePlayerVisibility() {
     }
 }
 
+function setPlayerVisibility(visible) {
+    const playerElement = document.querySelector('.player');
+    if (visible) {
+        playerElement.classList.remove('hide');
+        playerElement.classList.add('show');
+    } else {
+        if (playerBig) togglePlayerBig();
+        playerElement.classList.remove('show');
+        playerElement.classList.add('hide');
+    }
+}
+
+
 // Funktion zum Umwandeln von Hex-Farbe in RGB
 function hexToRgb(hex) {
     const bigint = parseInt(hex.slice(1), 16);
@@ -54,16 +67,20 @@ function wallpaperMediaThumbnailListener(event) {
         document.querySelector('.thumbnail').src = event.thumbnail ?? noTrackJpg;
         changePlayerBackgroundColor(event.primaryColor ?? "#000000", event.secondaryColor ?? "#000000");
     }
-    togglePlayerVisibility();
+    if (settings.player.enabled) {
+        togglePlayerVisibility();
+    }
 }
 
 function wallpaperMediaPropertiesListener(event) {
-    mediaPlaying = (event.title !== "" && settings.player.enabled) || settings.player.force;
+    mediaPlaying = event.title !== "" || settings.player.force;
     if (mediaPlaying) {
         document.querySelector('.title').textContent = event.title ?? "Kein Titel";
         document.querySelector('.desc').textContent = event.artist ?? "Kein Kein Künstler";
     }
-    togglePlayerVisibility();
+    if (settings.player.enabled) {
+        togglePlayerVisibility();
+    }
 }
 
 let playerBig = false;

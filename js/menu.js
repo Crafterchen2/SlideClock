@@ -24,6 +24,17 @@ function toggleMenu() {
     }
 }
 
+function setMenuVisibility(visible) {
+    const menuHandleButton = document.querySelector('.menuHandleButton');
+    if (visible) {
+        menuHandleButton.classList.remove('hide');
+        menuHandleButton.classList.add('show');
+    } else {
+        menuHandleButton.classList.remove('show');
+        menuHandleButton.classList.add('hide');
+    }
+}
+
 function showBlocker(){
     blockerOpenedOnce = true;
     const blocker = document.querySelector('.blocker');
