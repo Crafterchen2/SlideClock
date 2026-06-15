@@ -1,477 +1,478 @@
 :root {
-    --player-width: 550px;
-    --player-height: 200px;
-    --player-bg: linear-gradient(to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.4));
-
-    --clock-bg: linear-gradient(to right, rgb(97, 9, 179), rgb(0, 0, 153));
-    --clock-bg-hover: linear-gradient(to right, rgb(0, 123, 255), rgb(0, 153, 150));
-
-    --alarm-bg: linear-gradient(to right, rgb(255, 0, 72), rgb(153, 54, 0));
-    --alarm-bg-hover: linear-gradient(to right, rgb(255, 0, 166), rgb(255, 206, 0));
-
-    --blocker-bg: rgb(0,0,0);
-
-    --menu-handle-button-size: 64px;
-    --menu-width: 50%;
-
-    --gen-text-p: rgb(255, 255, 255);
-    --gen-text-s: rgb(128, 128, 128);
-    --gen-bg: rgba(0, 0, 0, 0.4);
-    --gen-border-radius: 8px;
-    --gen-padding: 10px;
-    --gen-padding-screen: 20px;
-    --gen-box-shadow: -10px -5px 20px -5px grey, 10px 10px 20px rgba(0, 10, 0, 0.7);
-    --gen-anim-time: 1s;
-
-    --comp-bg-p: rgb(92, 92, 92);
-    --comp-bg-s: rgb(64, 64, 64);
-    --comp-bg-t: rgb(48, 48, 48);
-    --comp-padding: 3px;
-    --comp-border-width: 1px;
-
-    --calc-height: 140px;
-
-    --layer-zero: 0;
-    --layer-alarm: calc(var(--layer-zero) + 1);
-    --layer-clock: calc(var(--layer-alarm) + 1);
-    --layer-menu: calc(var(--layer-clock) + 1);
-    --layer-player: calc(var(--layer-menu) + 1);
-    --layer-blocker: calc(var(--layer-player) + 1);
-    --layer-menu-handle: calc(var(--layer-blocker) + 1);
-
-    --taskbar-bottom: 65px;
+  --player-width: 550px;
+  --player-height: 200px;
+  --player-bg: linear-gradient(
+    to right,
+    rgb(255 255 255 / 2%),
+    rgb(255 255 255 / 2%)
+  );
+  --clock-bg: linear-gradient(to right, rgb(97, 9, 179), rgb(0, 0, 153));
+  --clock-bg-hover: linear-gradient(
+    to right,
+    rgb(0, 123, 255),
+    rgb(0, 153, 150)
+  );
+  --alarm-bg: linear-gradient(to right, rgb(255, 0, 72), rgb(153, 54, 0));
+  --alarm-bg-hover: linear-gradient(
+    to right,
+    rgb(255, 0, 166),
+    rgb(255, 206, 0)
+  );
+  --blocker-bg: rgb(0, 0, 0);
+  --menu-handle-button-size: 64px;
+  --menu-width: 50%;
+  --gen-text-p: rgb(255, 255, 255);
+  --gen-text-s: rgb(128, 128, 128);
+  --gen-bg: rgb(255 255 255 / 2%);
+  --gen-border-radius: 8px;
+  --gen-padding: 10px;
+  --gen-padding-screen: 20px;
+  --gen-box-shadow:
+    -10px -5px 20px -5px rgb(0 0 0 / 19%), 10px 10px 20px rgb(0 0 0 / 55%);
+  --gen-anim-time: 1s;
+  --comp-bg-p: rgb(92, 92, 92);
+  --comp-bg-s: rgb(64, 64, 64);
+  --comp-bg-t: rgb(48, 48, 48);
+  --comp-padding: 3px;
+  --comp-border-width: 1px;
+  --calc-height: 140px;
+  --layer-zero: 0;
+  --layer-alarm: calc(var(--layer-zero) + 1);
+  --layer-clock: calc(var(--layer-alarm) + 1);
+  --layer-menu: calc(var(--layer-clock) + 1);
+  --layer-player: calc(var(--layer-menu) + 1);
+  --layer-blocker: calc(var(--layer-player) + 1);
+  --layer-menu-handle: calc(var(--layer-blocker) + 1);
+  --taskbar-bottom: 65px;
 }
 
 * {
-    font-family: monospace;
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
-}
-
-html {
-    place-items: center;
+  font-family: monospace;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
 
 label {
-    background-color: var(--comp-bg-p);
-    border: solid;
-    border-color: var(--gen-text-s);
-    border-width: var(--comp-border-width);
-    padding: var(--comp-padding);
-    color: var(--gen-text-p);
+  background-color: var(--comp-bg-p);
+  border: solid;
+  border-color: var(--gen-text-s);
+  border-width: var(--comp-border-width);
+  padding: var(--comp-padding);
+  color: var(--gen-text-p);
 }
 
-body {
-    font-size: 2rem;
-    min-height: 100vh;
-    display: grid;
-    overflow-y: hidden;
-    place-items: center;
-    position: relative;
-    background-image: var(--clock-bg);
-    z-index: var(--layer-zero);
+main {
+  font-size: 2rem;
+  min-height: 100vh;
+  display: grid;
+  overflow-y: hidden;
+  place-items: center;
+  position: relative;
+  /* background-image: var(--clock-bg); */
+  z-index: var(--layer-zero);
 }
 
-body::before {
-    min-height: 100vh;
-    position: absolute;
-    content: "";
-    width: 100%;
-    height: 100%;
-    background-image: var(--clock-bg-hover);
-    transition: opacity var(--gen-anim-time) ease-in-out;
-    opacity: 0;
+main::before {
+  min-height: 100vh;
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 100%;
+  /* background-image: var(--clock-bg-hover); */
+  transition: opacity var(--gen-anim-time) ease-in-out;
+  opacity: 0;
 }
 
-body:hover::before {
-    opacity: 1;
+main:hover::before {
+  opacity: 1;
 }
 
 .hr,
 .min,
 .sec {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 3rem;
-    grid-row: 1/2;
-    align-items: start;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 3rem;
+  grid-row: 1/2;
+  align-items: start;
 }
 
 .number {
-    padding: 0.5em;
-    width: 4rem;
-    height: 4rem;
-    display: grid;
-    place-items: center;
-    color: var(--gen-text-s);
-    transition: all 500ms 100ms ease;
-    border-radius: 50%;
-    background-color: transparent;
-    border: transparent;
-    font-size: 2rem;
+  padding: 0.5em;
+  width: 4rem;
+  height: 4rem;
+  display: grid;
+  place-items: center;
+  color: var(--gen-text-s);
+  transition: all 500ms 100ms ease;
+  border-radius: 50%;
+  background-color: transparent;
+  border: transparent;
+  font-size: 2rem;
 }
 
 .number.pop {
-    color: var(--gen-text-p);
-    font-weight: bolder;
-    transform: scale(1.4);
-    background-color: var(--gen-bg);
-    box-shadow: var(--gen-box-shadow);
+  color: var(--gen-text-p);
+  font-weight: bolder;
+  transform: scale(1.4);
+  background-color: var(--gen-bg);
+  box-shadow: var(--gen-box-shadow);
 }
 
 .strip {
-    transition: transform 500ms ease-in-out;
-    border-radius: var(--gen-border-radius);
-    background-color: var(--gen-bg);
-    box-shadow: var(--gen-box-shadow);
+  transition: transform 500ms ease-in-out;
+  border-radius: var(--gen-border-radius);
+  background-color: var(--gen-bg);
+  box-shadow: var(--gen-box-shadow);
 }
 
 .clock {
-    z-index: var(--layer-clock);
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 5rem;
-    height: 4rem;
-    position: relative;
-    padding: 0 4rem;
+  z-index: var(--layer-clock);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 5rem;
+  height: 4rem;
+  position: relative;
+  padding: 0 4rem;
 }
 
 .playerContainer {
-    position: absolute;
-    width: var(--player-width);
-    height: var(--player-height);
-    bottom: var(--taskbar-bottom);
-    right: var(--gen-padding-screen);
-    z-index: var(--layer-player);
+  position: absolute;
+  width: var(--player-width);
+  height: var(--player-height);
+  bottom: var(--taskbar-bottom);
+  right: var(--gen-padding-screen);
+  z-index: var(--layer-player);
 }
 
 .playerContainer.big {
-    animation: toBig var(--gen-anim-time) forwards;
+  animation: toBig var(--gen-anim-time) forwards;
 }
 
 .playerContainer.small {
-    animation: toSmall var(--gen-anim-time) forwards;
+  animation: toSmall var(--gen-anim-time) forwards;
 }
 
 @keyframes toBig {
-    from {
-        width: var(--player-width);
-        height: var(--player-height);
-    }
-    to {
-        width: calc(100vw - (var(--gen-padding-screen) * 2));
-        height: calc(100vh - var(--gen-padding-screen) - var(--taskbar-bottom));
-    }
+  from {
+    width: var(--player-width);
+    height: var(--player-height);
+  }
+  to {
+    width: calc(100vw - (var(--gen-padding-screen) * 2));
+    height: calc(100vh - var(--gen-padding-screen) - var(--taskbar-bottom));
+  }
 }
 
 @keyframes toSmall {
-    from {
-        width: calc(100vw - (var(--gen-padding-screen) * 2));
-        height: calc(100vh - var(--gen-padding-screen) - var(--taskbar-bottom));
-    }
-    to {
-        width: var(--player-width);
-        height: var(--player-height);
-    }
+  from {
+    width: calc(100vw - (var(--gen-padding-screen) * 2));
+    height: calc(100vh - var(--gen-padding-screen) - var(--taskbar-bottom));
+  }
+  to {
+    width: var(--player-width);
+    height: var(--player-height);
+  }
 }
 
 .player {
-    border-radius: var(--gen-border-radius);
-    background-image: var(--player-bg);
-    box-shadow: var(--gen-box-shadow);
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    opacity: 0;
-    transform: translateY(100%);
-    padding: var(--gen-padding);
-    justify-content: space-between;
+  border-radius: var(--gen-border-radius);
+  background-image: var(--player-bg);
+  box-shadow: var(--gen-box-shadow);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  opacity: 0;
+  transform: translateY(100%);
+  padding: var(--gen-padding);
+  justify-content: space-between;
 }
 
 .player.show {
-    animation: slideInFromBottom var(--gen-anim-time) forwards;
+  animation: slideInFromBottom var(--gen-anim-time) forwards;
 }
 
 .player.hide {
-    animation: slideOutFromBottom var(--gen-anim-time) forwards;
+  animation: slideOutFromBottom var(--gen-anim-time) forwards;
 }
 
 @keyframes slideInFromBottom {
-    from {
-        opacity: 0;
-        transform: translateY(100%);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes slideOutFromBottom {
-    from {
-        opacity: 1;
-        transform: translateY(0);
-    }
-    to {
-        opacity: 0;
-        transform: translateY(100%);
-    }
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(100%);
+  }
 }
 
 .thumbnail {
-    height: 100%;
-    aspect-ratio: 1;
-    object-fit: cover;
-    border-radius: var(--gen-border-radius);
-    margin-right: var(--gen-padding);
+  height: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: var(--gen-border-radius);
+  margin-right: var(--gen-padding);
 }
 
 .text-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-end;
-    height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+  height: 100%;
 }
 
 .title {
-    font-weight: bold;
-    text-align: right;
-    color: var(--gen-text-p);
+  font-weight: bold;
+  text-align: right;
+  color: var(--gen-text-p);
 }
 
 .desc {
-    text-align: right;
-    font-size: 1.4rem;
-    color: var(--gen-text-s);
+  text-align: right;
+  font-size: 1.4rem;
+  color: var(--gen-text-s);
 }
 
 .menuHandleButton {
-    z-index: var(--layer-menu-handle);
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--gen-bg);
-    box-shadow: var(--gen-box-shadow);
-    top: var(--gen-padding-screen);
-    left: var(--gen-padding-screen);
-    width: var(--menu-handle-button-size);
-    height: var(--menu-handle-button-size);
-    border-radius: var(--gen-border-radius);
+  z-index: var(--layer-menu-handle);
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--gen-bg);
+  box-shadow: var(--gen-box-shadow);
+  top: var(--gen-padding-screen);
+  left: var(--gen-padding-screen);
+  width: var(--menu-handle-button-size);
+  height: var(--menu-handle-button-size);
+  border-radius: var(--gen-border-radius);
 }
 
 .menuHandleButton.show {
-    animation: slideInFromLeft var(--gen-anim-time) forwards;
+  animation: slideInFromLeft var(--gen-anim-time) forwards;
 }
 
 .menuHandleButton.hide {
-    animation: slideOutFromLeft var(--gen-anim-time) forwards;
+  animation: slideOutFromLeft var(--gen-anim-time) forwards;
 }
 
 @keyframes slideInFromLeft {
-    from {
-        opacity: 0;
-        transform: translateX(-100%);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
+  from {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 @keyframes slideOutFromLeft {
-    from {
-        opacity: 1;
-        transform: translateX(0);
-    }
-    to {
-        opacity: 0;
-        transform: translateX(-100%);
-    }
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
 }
 
 .menuHandle {
-    font-weight: bold;
-    color: var(--gen-text-s);
+  font-weight: bold;
+  color: var(--gen-text-s);
 }
 
 .menuHandle.open {
-    animation: openHandle var(--gen-anim-time) forwards;
+  animation: openHandle var(--gen-anim-time) forwards;
 }
 
 .menuHandle.close {
-    animation: closeHandle var(--gen-anim-time) forwards;
+  animation: closeHandle var(--gen-anim-time) forwards;
 }
 
 @keyframes openHandle {
-    from {
-        transform: rotate(0turn);
-        color: var(--gen-text-s);
-    }
-    to {
-        transform: rotate(0.25turn);
-        color: var(--gen-text-p);
-    }
+  from {
+    transform: rotate(0turn);
+    color: var(--gen-text-s);
+  }
+  to {
+    transform: rotate(0.25turn);
+    color: var(--gen-text-p);
+  }
 }
 
-
 @keyframes closeHandle {
-    from {
-        transform: rotate(0.25turn);
-        color: var(--gen-text-p);
-    }
-    to {
-        transform: rotate(0turn);
-        color: var(--gen-text-s);
-    }
+  from {
+    transform: rotate(0.25turn);
+    color: var(--gen-text-p);
+  }
+  to {
+    transform: rotate(0turn);
+    color: var(--gen-text-s);
+  }
 }
 
 .menu {
-    z-index: var(--layer-menu);
-    background-color: var(--gen-bg);
-    box-shadow: var(--gen-box-shadow);
-    position: absolute;
-    left: var(--gen-padding-screen);
-    top: calc(var(--menu-handle-button-size) + var(--gen-padding-screen) + var(--gen-padding));
-    height: fit-content;
-    width: fit-content;
-    border-radius: var(--gen-border-radius);
-    opacity: 0;
-    transform: translateY(-100%);
-    flex-wrap: wrap;
-    flex-direction: column;
-    //padding: var(--gen-padding);
+  z-index: var(--layer-menu);
+  background-color: var(--gen-bg);
+  box-shadow: var(--gen-box-shadow);
+  position: absolute;
+  left: var(--gen-padding-screen);
+  top: calc(
+    var(--menu-handle-button-size) + var(--gen-padding-screen) +
+      var(--gen-padding)
+  );
+  height: fit-content;
+  width: fit-content;
+  border-radius: var(--gen-border-radius);
+  opacity: 0;
+  transform: translateY(-100%);
+  flex-wrap: wrap;
+  flex-direction: column;
 }
 
 .menu.open {
-    animation: openMenu var(--gen-anim-time) forwards;
+  animation: openMenu var(--gen-anim-time) forwards;
 }
 
 .menu.close {
-    animation: closeMenu var(--gen-anim-time) forwards;
+  animation: closeMenu var(--gen-anim-time) forwards;
 }
 
 @keyframes openMenu {
-    from {
-        opacity: 0;
-        transform: translateX(-100%);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
+  from {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 @keyframes closeMenu {
-    from {
-        opacity: 1;
-        transform: translateX(0);
-    }
-    to {
-        opacity: 0;
-        transform: translateX(-100%);
-    }
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
 }
 
 .inMenuButton {
-    width: var(--menu-handle-button-size);
-    height: var(--menu-handle-button-size);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: var(--gen-text-p);
-    background-color: transparent;
-    border: transparent;
-    font-size: 2rem;
+  width: var(--menu-handle-button-size);
+  height: var(--menu-handle-button-size);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--gen-text-p);
+  background-color: transparent;
+  border: transparent;
+  font-size: 2rem;
 }
 
 .alarm {
-    background-image: var(--alarm-bg);
-    z-index: var(--layer-alarm);
-    opacity: 0;
-    position: absolute;
-    width: 100%;
-    height: 100%;
+  background-image: var(--alarm-bg);
+  z-index: var(--layer-alarm);
+  opacity: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
 }
 
 .alarm::before {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-image: var(--alarm-bg-hover);
-    z-index: var(--layer-alarm);
-    transition: opacity var(--gen-anim-time) ease-in-out;
-    opacity: 0;
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: var(--alarm-bg-hover);
+  z-index: var(--layer-alarm);
+  transition: opacity var(--gen-anim-time) ease-in-out;
+  opacity: 0;
 }
 
 .alarm:hover::before {
-    opacity: 1;
+  opacity: 1;
 }
 
 .alarm.show {
-    animation: showAlarm var(--gen-anim-time) forwards;
+  animation: showAlarm var(--gen-anim-time) forwards;
 }
 
 .alarm.hide {
-    animation: hideAlarm var(--gen-anim-time) forwards;
+  animation: hideAlarm var(--gen-anim-time) forwards;
 }
 
 @keyframes showAlarm {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes hideAlarm {
-    from {
-        opacity: 1;
-    }
-    to {
-        opacity: 0;
-    }
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
 
 .blocker {
-    background-color: var(--blocker-bg);
-    z-index: var(--layer-blocker);
-    opacity: 0;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
+  background-color: var(--blocker-bg);
+  z-index: var(--layer-blocker);
+  opacity: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
 }
 
 .blocker.show {
-    animation: showBlocker var(--gen-anim-time) forwards;
-    pointer-events: all;
+  animation: showBlocker var(--gen-anim-time) forwards;
+  pointer-events: all;
 }
 
 .blocker.hide {
-    animation: hideBlocker var(--gen-anim-time) forwards;
-    pointer-events: none;
+  animation: hideBlocker var(--gen-anim-time) forwards;
+  pointer-events: none;
 }
 
 @keyframes showBlocker {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes hideBlocker {
-    from {
-        opacity: 1;
-    }
-    to {
-        opacity: 0;
-    }
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
