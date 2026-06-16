@@ -3,6 +3,17 @@ const numberSize = "4"; // in rem
 
 const lastTime = [-1, -1, -1];
 
+function setClockVisibility(visible) {
+  const clockElement = document.querySelector(".clock");
+  if (visible) {
+    clockElement.classList.remove("hide");
+    clockElement.classList.add("show");
+  } else {
+    clockElement.classList.remove("show");
+    clockElement.classList.add("hide");
+  }
+}
+
 // highlight number i on strip s for 1 second
 function highlight(strip, d) {
   strips[strip]

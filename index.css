@@ -135,6 +135,15 @@ main:hover::before {
   height: 4rem;
   position: relative;
   padding: 0 4rem;
+  transition: opacity var(--gen-anim-time) ease-in-out;
+}
+
+.clock.show {
+  opacity: 1;
+}
+
+.clock.hide {
+  opacity: 0;
 }
 
 .playerContainer {
@@ -184,7 +193,6 @@ main:hover::before {
   height: 100%;
   display: flex;
   align-items: center;
-  opacity: 0;
   transform: translateY(100%);
   padding: var(--gen-padding);
   justify-content: space-between;

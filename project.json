@@ -4,6 +4,20 @@
   "file": "index.html",
   "general": {
     "properties": {
+      "affectorbs": {
+        "index": 3,
+        "order": 103,
+        "text": "Affects Orbs",
+        "type": "bool",
+        "value": true
+      },
+      "clockenabled": {
+        "index": 0,
+        "order": 100,
+        "text": "Clock Enabled",
+        "type": "bool",
+        "value": true
+      },
       "menuenabled": {
         "index": 1,
         "order": 101,
@@ -12,16 +26,9 @@
         "value": true
       },
       "playerenabled": {
-        "index": 0,
-        "order": 100,
-        "text": "Player Enabled",
-        "type": "bool",
-        "value": true
-      },
-      "affectorbs": {
         "index": 2,
-        "order": 99,
-        "text": "Affects Orbs",
+        "order": 102,
+        "text": "Player Enabled",
         "type": "bool",
         "value": true
       },

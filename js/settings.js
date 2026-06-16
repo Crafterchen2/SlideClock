@@ -125,6 +125,10 @@ window.wallpaperPropertyListener = {
       settings.menu.enabled = properties.menuenabled.value;
       setMenuVisibility(settings.menu.enabled);
     }
+    if (properties.clockenabled) {
+      settings.clock.enabled = properties.clockenabled.value;
+      setClockVisibility(settings.clock.enabled);
+    }
     if (properties.affectorbs) {
       settings.player.affectOrbs = properties.affectorbs.value;
       if (!settings.player.affectOrbs) changeOrbColor(null, null, null);
