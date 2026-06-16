@@ -18,6 +18,13 @@
         "type": "bool",
         "value": true
       },
+      "affectorbs": {
+        "index": 2,
+        "order": 99,
+        "text": "Affects Orbs",
+        "type": "bool",
+        "value": true
+      },
       "schemecolor": {
         "order": 0,
         "text": "ui_browse_properties_scheme_color",

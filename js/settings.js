@@ -5,6 +5,7 @@ let settings = {
   player: {
     enabled: true,
     force: false,
+    affectOrbs: true,
     pColorScale: {
       r: 0.7,
       g: 0.7,
@@ -123,6 +124,10 @@ window.wallpaperPropertyListener = {
     if (properties.menuenabled) {
       settings.menu.enabled = properties.menuenabled.value;
       setMenuVisibility(settings.menu.enabled);
+    }
+    if (properties.affectorbs) {
+      settings.player.affectOrbs = properties.menuenabled.value;
+      if (!settings.player.affectOrbs) changeOrbColor(null, null, null);
     }
   },
 };
