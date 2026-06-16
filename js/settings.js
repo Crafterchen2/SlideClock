@@ -126,7 +126,7 @@ window.wallpaperPropertyListener = {
       setMenuVisibility(settings.menu.enabled);
     }
     if (properties.affectorbs) {
-      settings.player.affectOrbs = properties.menuenabled.value;
+      settings.player.affectOrbs = properties.affectorbs.value;
       if (!settings.player.affectOrbs) changeOrbColor(null, null, null);
     }
   },
