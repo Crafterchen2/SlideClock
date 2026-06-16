@@ -25,6 +25,7 @@ function togglePlayerVisibility() {
         if (playerBig) togglePlayerBig();
         playerElement.classList.remove('show');
         playerElement.classList.add('hide');
+        changeOrbColor(null, null, null);
     }
 }
 
@@ -122,7 +123,7 @@ function wallpaperMediaPropertiesListener(event) {
     mediaPlaying = event.title !== "" || settings.player.force;
     if (mediaPlaying) {
         document.querySelector('.title').textContent = event.title ?? "Kein Titel";
-        document.querySelector('.desc').textContent = event.artist ?? "Kein Kein Künstler";
+        document.querySelector('.desc').textContent = event.artist ?? "Kein Künstler";
     }
     if (settings.player.enabled) {
         togglePlayerVisibility();
